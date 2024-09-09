@@ -1,8 +1,16 @@
-import { AuthScreen } from "@/features/auth/components/auth-screen";
+'use client'
+
+import { UserButton } from "@/features/auth/components/user.button";
+
 
 
 export default function Home() {
+ 
   return (
-   <AuthScreen/>
+   <div>
+    
+    <UserButton/>
+
+   </div>
   );
 }
