@@ -1,4 +1,4 @@
-
+'use client'
 import { Button } from '@/components/ui/button'
 import { useGetWorkspace } from '@/features/workspace/api/use-get-workspace'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
