@@ -33,3 +33,20 @@ export const get = query({
     
   }
 });
+
+export const getById = query({
+  args: {
+    id:v.id('workspaces'),
+  },
+  handler: async (ctx,args) => {
+    const userId=await getAuthUserId(ctx);
+
+    if(!userId){
+      throw new Error("Unauthorized")
+    }
+    
+
+     return await ctx.db.get(args.id)
+    
+  }
+});
