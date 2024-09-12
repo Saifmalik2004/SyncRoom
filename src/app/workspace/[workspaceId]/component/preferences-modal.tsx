@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogClose,
@@ -12,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRemoveWorkspace } from "@/features/workspace/api/use-remove-workspace";
 import { useUpdateWorkspace } from "@/features/workspace/api/use-update-workspace";
+import { useConfirm } from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 import { TrashIcon } from "lucide-react";
@@ -26,15 +26,21 @@ import { toast } from "sonner";
   }
 
 const PreferencesModal=({open,setOpen,initialValue}:PreferencesModalProps)=> {
-    const workspaceId=useWorkspaceId()
+    const workspaceId=useWorkspaceId();
+    const router = useRouter();
+    const [ConfirmDialog, confirm] = useConfirm(
+        'Are you sure?',
+        'This action connot be undone'
+    )
     const [value, setValue] = useState(initialValue)
     const [editOpen, setEditOpen] = useState(false)
 
   const {mutate:updateWorkspace,isPending:isUpdateWorkspace}=useUpdateWorkspace()
   const {mutate:removeWorkspace,isPending:isRemoveWorspace}=useRemoveWorkspace()
- const router = useRouter()
-  const handleRemove=()=>{
-    
+ 
+  const handleRemove=async()=>{
+    const ok=await confirm()
+    if(!ok) return
     removeWorkspace({
         id:workspaceId
        
@@ -69,6 +75,8 @@ const PreferencesModal=({open,setOpen,initialValue}:PreferencesModalProps)=> {
   }
 
     return (
+    <>
+    <ConfirmDialog/>
     <Dialog open={open} onOpenChange={setOpen}>
   <DialogContent className="p-0 bg-gray-50 overflow-hidden">
     <DialogHeader className="p-4 border-b bg-white">
@@ -140,6 +148,7 @@ const PreferencesModal=({open,setOpen,initialValue}:PreferencesModalProps)=> {
     </div>
   </DialogContent>
 </Dialog>
+    </>
 
   )
 }
