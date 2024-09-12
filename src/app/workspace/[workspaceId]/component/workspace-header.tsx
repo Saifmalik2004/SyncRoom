@@ -20,6 +20,7 @@ import { useState } from "react"
 const WorkSpaceHeader=({workspace,isAdmin}:WOrkspaceHeaderProps)=>{
   
     const [preferencesOpen, setPreferencesOpen] = useState(false)
+    
     return (
     <>
     <PreferencesModal
