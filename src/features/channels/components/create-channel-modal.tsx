@@ -5,21 +5,28 @@ import {
     DialogHeader,
     DialogTitle,
   } from "@/components/ui/dialog"
-import { useCreateWOrkspaceModal } from "../store/use-create-workspace-modal"
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useCreateWorkspace } from "../api/use-create-workspace";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useCreateChannelModal } from "../store/use-create-channel-modal";
+import { useCreateChannel } from "../api/use-create-channel";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
-export const CreateWorkspaceModal= ()=>{
+export const CreateChannelModal= ()=>{
+  const workspaceId=useWorkspaceId()
     const [name, setName] = useState('')
     
-    const [open,setOpen]=useCreateWOrkspaceModal();
+    const [open,setOpen]=useCreateChannelModal();
     const router =useRouter()
-    const {mutate,isPending}=useCreateWorkspace()
+    const {mutate,isPending}=useCreateChannel()
 
+    const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+      const value =e.target.value.replace(/\s+/g, "-").toLowerCase()
+      setName(value)
+    }
     const handleClose=()=>{
         setOpen(false)
         setName('')
@@ -27,10 +34,10 @@ export const CreateWorkspaceModal= ()=>{
 
     const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-      mutate({name},{
+      mutate({name,workspaceId},{
       onSuccess(id){
-        toast.success("Workspace created")
-        router.push(`/workspace/${id}`)
+        toast.success("Channel created")
+        // router.push(`/workspace/${id}`)
         handleClose()
       },
 
@@ -42,15 +49,18 @@ export const CreateWorkspaceModal= ()=>{
 <Dialog open={open} onOpenChange={handleClose}>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Add a workspace</DialogTitle>
+      <DialogTitle>Add a channel</DialogTitle>
     </DialogHeader>
     <form onSubmit={handleSubmit} className="space-y-4">
         <Input
         value={name}
-        placeholder="Workspace name e.g. 'Work', 'Personal', 'Home' "
-        onChange={(e)=> setName(e.target.value)}
+        placeholder="e.g. plan-budget "
+        onChange={handleChange}
         disabled={isPending}
         required
+        autoFocus
+        minLength={3}
+        maxLength={80}
         />
         <div className="flex justify-end">
             <Button disabled={isPending}>
