@@ -75,12 +75,12 @@ const WorkSpaceHeader=({workspace,isAdmin}:WOrkspaceHeaderProps)=>{
 </DropdownMenu>
 <div className="flex items-center gap-0.5">
     <Hint label="Filter conversation" side="bottom">
-    <Button variant='transparent' size='isconSm'>
+    <Button variant='transparent' size='iconSm'>
         <ListFilter className="size-4"/>
     </Button>
     </Hint>
     <Hint label="New message" side="bottom">
-    <Button variant='transparent' size='isconSm'>
+    <Button variant='transparent' size='iconSm'>
         <SquarePen className="size-4"/>
     </Button>
     </Hint>
