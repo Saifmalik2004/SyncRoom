@@ -49,12 +49,12 @@ const WorkspaceIdPage=()=> {
   ])
   if(workspaceLoading || channelsLoading){
     return(
-      <div className="h-full flex flex-1 items-center justify-center flex-col gap-2">
-        <Loader className="s-ze6 animate-spin text-muted-foreground"/>
+      <div className="h-full flex flex-1 items-center justify-center  gap-2">
+        <Loader className="size-6 animate-spin text-muted-foreground"/>
       </div>
     )
   }
-  if(!workspace){
+  if(!workspace || !member){
     return(
       <div className="h-full flex flex-1 items-center justify-center flex-col gap-2">
         <TriangleAlert className="size-6 text-muted-foreground"/>
