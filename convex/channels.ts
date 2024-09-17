@@ -44,7 +44,7 @@ export const getById = query({
   handler: async (ctx,args) => {
     const userId=await getAuthUserId(ctx);
     if(!userId){
-      return []
+      return null
     }
     const channel =await ctx.db.get(args.id)
 
@@ -59,7 +59,7 @@ export const getById = query({
     .unique();
 
     if(!member){
-      return []
+      return null
     }
 
     

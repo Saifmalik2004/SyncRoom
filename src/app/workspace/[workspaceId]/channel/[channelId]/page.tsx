@@ -18,7 +18,7 @@ const ChannelIdPage=()=> {
     )
   }
 
-  if(!channel|| Array.isArray(channel)){
+  if(!channel){
     return(
       <div className="h-full  flex-1 flex items-center justify-center flex-col gap-y-2">
         <TriangleAlert className="size-5  text-muted-foreground"/>
@@ -32,7 +32,7 @@ const ChannelIdPage=()=> {
     <div className=' h-full flex flex-col '>
      <Header name={channel.name}/>
      <div className="flex-1"/>
-     <ChatInput/>
+     <ChatInput placeholder={`Message # ${channel.name}`}/>
      
       </div>
   )
