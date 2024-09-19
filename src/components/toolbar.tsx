@@ -41,6 +41,8 @@ const Toolbar=({
             {!hideThreadButton && (
                 <Hint label='Message in Thread'>
                 <Button
+                onClick={handleThread}
+
                 variant='ghost'
                 size="iconSm"
                 disabled={isPending}
@@ -53,6 +55,7 @@ const Toolbar=({
                 <>
                 <Hint label='Edit'>
                 <Button
+                onClick={handleEdit}
                 variant='ghost'
                 size="iconSm"
                 disabled={isPending}
@@ -62,6 +65,7 @@ const Toolbar=({
                 </Hint>
                 <Hint label='Remove'>
                 <Button
+                onClick={handleDelete}
                 variant='ghost'
                 size="iconSm"
                 disabled={isPending}
