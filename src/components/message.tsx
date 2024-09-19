@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { Thumbnail } from "./thumbnail";
+import Toolbar from "./toolbar";
+
 
 
 const Renderer=dynamic(()=> import("@/components/renderer"),{ssr:false})
@@ -115,6 +117,18 @@ threadTimeStamp,
               ):null}
               </div>
             </div>
+            {!isEditing &&(
+              <Toolbar
+              isAuthor={isAuthor}
+              isPending={false}
+              handleEdit={()=>setEditingId(id)}
+              handleThread={()=> {}}
+              handleDelete={()=>{}}
+              handleReaction={()=>{}}
+              hideThreadButton={hideThreadButton}
+              
+              />
+            )}
            
         </div>
       );
