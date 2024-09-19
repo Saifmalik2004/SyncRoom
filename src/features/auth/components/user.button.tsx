@@ -25,7 +25,7 @@ export const UserButton=()=>{
 
     const{image,name}=data;
     const avatarFallback=name!.charAt(0).toUpperCase();
-    console.log('iamge',image)
+    
 
     return(
         <DropdownMenu>

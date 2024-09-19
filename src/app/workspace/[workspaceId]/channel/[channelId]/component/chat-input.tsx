@@ -38,7 +38,7 @@ const ChatInput=({placeholder}:ChatInputProps)=> {
     body:string;
     image:File|null
   })=>{
-    console.log({image,body})
+   
    try {
     setIspending(true)
     editorRef?.current?.enable(false)
@@ -71,9 +71,9 @@ const ChatInput=({placeholder}:ChatInputProps)=> {
           throw new Error("Failed to uplaod image")
         }
 
-      const {storagId}=await result.json();
-
-      values.image=storagId;
+      const {storageId}=await result.json();
+       
+      values.image=storageId;
     }
     const result =await createMessage(values,{throwError:true});
   
