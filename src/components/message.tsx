@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useRemoveMessage } from "@/features/messages/api/use-remove-message";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
+import Reactions from "./reactions";
 
 
 
@@ -76,8 +78,19 @@ threadTimeStamp,
 
   const {mutate:updateMessage,isPending:isUpdateMessage}=useUpdateMessage()
   const {mutate:removeMessage,isPending:isRemoveMessage}=useRemoveMessage()
+  const {mutate:toggleReaction,isPending:isToggleReaction}=useToggleReaction()
   
   const isPending=isUpdateMessage;
+  
+  const handleReaction=(value:string)=>{
+    toggleReaction({messageId:id,value},{
+      onError:()=>{
+        toast.success(" Failed to toggle reaction");
+        
+      },
+
+    })
+  }
 
   const handleUpdate=({body}:{body:string})=>{
     updateMessage({id,body},{
@@ -144,6 +157,11 @@ threadTimeStamp,
                       {updatedAt ?(
                         <span className="text-xs text-muted-foreground">(edited)</span>
                       ):null}
+                      <Reactions
+                    data={reactions}
+                    onChange={handleReaction}
+                    />
+
                     </div>
                     )}
                 </div>
@@ -154,7 +172,7 @@ threadTimeStamp,
               handleEdit={()=>setEditingId(id)}
               handleThread={()=> {}}
               handleDelete={handleRemove}
-              handleReaction={()=>{}}
+              handleReaction={handleReaction}
               hideThreadButton={hideThreadButton}
               
               />
@@ -214,6 +232,11 @@ threadTimeStamp,
               {updatedAt? (
                 <span className="text-xs text-muted-foreground">(edited)</span>
               ):null}
+                    <Reactions
+                    data={reactions}
+                    onChange={handleReaction}
+                    />
+
               </div>
               )} 
               
@@ -225,7 +248,7 @@ threadTimeStamp,
               handleEdit={()=>setEditingId(id)}
               handleThread={()=> {}}
               handleDelete={handleRemove}
-              handleReaction={()=>{}}
+              handleReaction={handleReaction}
               hideThreadButton={hideThreadButton}
               
               />
