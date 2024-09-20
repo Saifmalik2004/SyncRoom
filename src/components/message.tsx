@@ -14,6 +14,8 @@ import { useRemoveMessage } from "@/features/messages/api/use-remove-message";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
 import Reactions from "./reactions";
+import { usePanel } from "@/hooks/use-panel";
+import { useParentMessageId } from "@/features/messages/stote/use-parent-message-id";
 
 
 
@@ -69,6 +71,7 @@ threadCount,
 threadImage,
 threadTimeStamp,
 }:MessageProps) {
+  const {onOpenMessage,onCloseMessage,parentMessageId}=usePanel()
   const  workspaceId=useWorkspaceId()
   const avatarFallback=authorName?.charAt(0).toUpperCase()
   
@@ -115,7 +118,9 @@ threadTimeStamp,
     removeMessage({id},{
       onSuccess:()=>{
         toast.success("Message Deleted");
-        //todo
+       if(parentMessageId===id){
+        onCloseMessage()
+       }
       },
       onError:()=>{
         toast.success(" Failed to delete message");
@@ -173,7 +178,7 @@ threadTimeStamp,
               isAuthor={isAuthor}
               isPending={isPending}
               handleEdit={()=>setEditingId(id)}
-              handleThread={()=> {}}
+              handleThread={()=> onOpenMessage(id)}
               handleDelete={handleRemove}
               handleReaction={handleReaction}
               hideThreadButton={hideThreadButton}
@@ -250,7 +255,7 @@ threadTimeStamp,
               isAuthor={isAuthor}
               isPending={isPending}
               handleEdit={()=>setEditingId(id)}
-              handleThread={()=> {}}
+              handleThread={()=> onOpenMessage(id)}
               handleDelete={handleRemove}
               handleReaction={handleReaction}
               hideThreadButton={hideThreadButton}
