@@ -180,3 +180,64 @@ const getMember = async (
       
     },
   });
+
+  export const getReactionsByMessageId = query({
+    args: {
+      messageId: v.id("messages"),
+    },
+    handler: async (ctx, args) => {
+      const userId = await getAuthUserId(ctx);
+      if (!userId) {
+        throw new Error("Unauthorized");
+      }
+  
+      const message = await ctx.db.get(args.messageId);
+      if (!message) {
+        throw new Error("Message not found");
+      }
+  
+      // Query all reactions for the given messageId
+      const reactions = await ctx.db.query("reactions")
+        .withIndex("by_message_id", (q) => q.eq("messageId", args.messageId))
+        .collect();
+  
+      if (!reactions.length) {
+        return { message: "No reactions found for this message." };
+      }
+  
+      // For each reaction, fetch the member and user details
+      const populatedReactions = await Promise.all(
+        reactions.map(async (reaction) => {
+          // Fetch the member using the memberId
+          const member = await ctx.db.get(reaction.memberId);
+  
+          if (!member) {
+            throw new Error(`Member not found for memberId: ${reaction.memberId}`);
+          }
+  
+          // Fetch the user using the userId from the member
+          const user = await ctx.db.get(member.userId);
+  
+          if (!user) {
+            throw new Error(`User not found for userId: ${member.userId}`);
+          }
+  
+          return {
+            user: {
+              id: user._id,
+              name: user.name,
+              image:user.image,   // Assuming user has a 'name' field
+              email: user.email, // Assuming user has an 'email' field
+            },
+            value: reaction.value,  // Reaction value (emoji or type)
+          };
+        })
+      );
+  
+      return {
+        messageId: args.messageId,
+        reactions: populatedReactions, // Return reactions with user details
+      };
+    },
+  });
+  

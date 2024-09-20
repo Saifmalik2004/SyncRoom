@@ -17,6 +17,7 @@ import Reactions from "./reactions";
 
 
 
+
 const Renderer=dynamic(()=> import("@/components/renderer"),{ssr:false})
 const Editor=dynamic(()=> import("@/components/editor"),{ssr:false})
 
@@ -79,7 +80,8 @@ threadTimeStamp,
   const {mutate:updateMessage,isPending:isUpdateMessage}=useUpdateMessage()
   const {mutate:removeMessage,isPending:isRemoveMessage}=useRemoveMessage()
   const {mutate:toggleReaction,isPending:isToggleReaction}=useToggleReaction()
-  
+
+ 
   const isPending=isUpdateMessage;
   
   const handleReaction=(value:string)=>{
@@ -158,6 +160,7 @@ threadTimeStamp,
                         <span className="text-xs text-muted-foreground">(edited)</span>
                       ):null}
                       <Reactions
+                      id={id}
                     data={reactions}
                     onChange={handleReaction}
                     />
@@ -235,6 +238,7 @@ threadTimeStamp,
                     <Reactions
                     data={reactions}
                     onChange={handleReaction}
+                    id={id}
                     />
 
               </div>
