@@ -50,7 +50,7 @@ const ChatInput=({placeholder}:ChatInputProps)=> {
       image:undefined,
 
     }
-
+     
     if(image){
       const url=await generateUplaodUrl({},{throwError:true})
       
