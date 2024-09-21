@@ -12,6 +12,9 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo } from 'react'
 import VerificationInput from 'react-verification-input'
 import { toast } from 'sonner'
+
+
+
 const JoinPage=()=> {
    const router=useRouter()
     const workspaceId=useWorkspaceId();

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Id } from '../../../../../../../convex/_generated/dataModel'
 import { Button } from '@/components/ui/button'
 import { FaChevronDown } from 'react-icons/fa'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'

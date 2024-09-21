@@ -15,7 +15,8 @@ import { useConfirm } from "@/hooks/use-confirm";
 import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
 import Reactions from "./reactions";
 import { usePanel } from "@/hooks/use-panel";
-import { useParentMessageId } from "@/features/messages/stote/use-parent-message-id";
+import { useParentMessageId } from "@/features/messages/store/use-parent-message-id";
+import { ThreadBar } from "./thread-bar";
 
 
 
@@ -45,6 +46,7 @@ isCompact:boolean
 hideThreadButton?:boolean 
 threadCount?:number
 threadImage?:string
+threadName?:string
 threadTimeStamp?:number;
 }
 
@@ -69,9 +71,11 @@ isCompact,
 hideThreadButton,
 threadCount,
 threadImage,
+threadName,
 threadTimeStamp,
+
 }:MessageProps) {
-  const {onOpenMessage,onCloseMessage,parentMessageId}=usePanel()
+  const {onOpenMessage,onCloseMessage,onOpenProfile,parentMessageId}=usePanel()
   const  workspaceId=useWorkspaceId()
   const avatarFallback=authorName?.charAt(0).toUpperCase()
   
@@ -85,7 +89,7 @@ threadTimeStamp,
   const {mutate:toggleReaction,isPending:isToggleReaction}=useToggleReaction()
 
  
-  const isPending=isUpdateMessage;
+  const isPending=isUpdateMessage || isToggleReaction;
   
   const handleReaction=(value:string)=>{
     toggleReaction({messageId:id,value},{
@@ -166,8 +170,15 @@ threadTimeStamp,
                       ):null}
                       <Reactions
                       id={id}
-                    data={reactions}
-                    onChange={handleReaction}
+                      data={reactions}
+                      onChange={handleReaction}
+                    />
+                    <ThreadBar
+                    count={threadCount}
+                    image={threadImage}
+                    timestamp={threadTimeStamp}
+                    name={threadName}
+                    onCLick={()=> onOpenMessage(id)}
                     />
 
                     </div>
@@ -198,8 +209,9 @@ threadTimeStamp,
           isRemoveMessage && 'bg-rose-500/50 transfrom transition-all scale-y-0 origin-bottom duration-200'
         )}>
             <div className="flex items-start gap-2">
-              <button>
-              <Link href={`/workspace/${workspaceId}/member/${id}`}>
+              <button
+              onClick={()=> onOpenProfile(memberId)}
+              >
             <Avatar >
                 <AvatarImage src={authorImage}/>
                 <AvatarFallback >
@@ -207,7 +219,7 @@ threadTimeStamp,
                 </AvatarFallback>
             </Avatar>
 
-            </Link>
+           
               </button>
               {isEditing ?(
                    <div className="w-full h-full">
@@ -225,7 +237,7 @@ threadTimeStamp,
                 <div className="flex flex-col w-full overflow-hidden">
               <div className="text-sm">
                 <button 
-               onClick={()=>{}} className="font-bold text-primary hover:underline">
+               onClick={()=>onOpenProfile(memberId)} className="font-bold text-primary hover:underline">
                     {authorName}
                 </button>
                 <span>&nbsp;&nbsp;</span>
@@ -244,6 +256,14 @@ threadTimeStamp,
                     data={reactions}
                     onChange={handleReaction}
                     id={id}
+                    />
+                    <ThreadBar
+                    count={threadCount}
+                    image={threadImage}
+                    timestamp={threadTimeStamp}
+                    name={threadName}
+                    onCLick={()=> onOpenMessage(id)}
+
                     />
 
               </div>
