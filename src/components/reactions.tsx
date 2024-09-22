@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Doc, Id } from '../../convex/_generated/dataModel';
 import { useWorkspaceId } from '@/hooks/use-workspace-id';
-import { useCurrentMember } from '@/features/members/api/use-cuurent-member';
+import { useCurrentMember } from '@/features/members/api/use-current-member';
 import { cn } from '@/lib/utils';
 import Hint from './hint';
 import { EmojiPopover } from './emoji-popover';

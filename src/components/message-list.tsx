@@ -5,7 +5,7 @@ import ChannelHero from "./channel-hero";
 import { useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useCurrentMember } from "@/features/members/api/use-cuurent-member";
+import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { Loader } from "lucide-react";
 import ConversationHero from "./conversation-hero";
 

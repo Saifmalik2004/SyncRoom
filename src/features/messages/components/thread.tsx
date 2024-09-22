@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Id } from "../../../../convex/_generated/dataModel"
 import { AlertTriangle, Loader, XIcon } from "lucide-react";
 import { UseGetMessage } from "../api/use-get-message";
-import { useCurrentMember } from "@/features/members/api/use-cuurent-member";
+import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useRef, useState } from "react";
 import Message from "@/components/message";

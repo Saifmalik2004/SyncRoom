@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useConfirm } from '@/hooks/use-confirm'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
-import { useCurrentMember } from '@/features/members/api/use-cuurent-member'
+import { useCurrentMember } from '@/features/members/api/use-current-member'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 

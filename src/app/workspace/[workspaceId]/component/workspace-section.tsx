@@ -24,7 +24,7 @@ const WorkspaceSection=({label,hint, children,onNew}:WorkspaceSectionProps)=> {
             className='p-0.5 text-sm text-[#f9edffcc] shrink-0 size-6'>
                 <FaCaretDown className={cn('size-4 transition-transform', on && '-rotate-90')}/>
             </Button>
-            <Button size='sm' variant='transparent' className='group text-sm text-[#f9edffcc] h-[28px] justify-start overflow-hidden items-center'>
+            <Button size='sm' variant='transparent' className='group text-sm text-[#f9edffcc] h-[28px] w-full justify-start overflow-hidden items-center'>
                 <span  className='truncate'>{label}</span>
             </Button>
             {onNew && (
@@ -33,7 +33,7 @@ const WorkspaceSection=({label,hint, children,onNew}:WorkspaceSectionProps)=> {
                     onClick={onNew} 
                     size='iconSm'
                     variant='transparent'
-                    className='opacity-0 group-hover:opacity-100 transition-opacity ml-auto p-0.5 text-sm text-[#f9edffcc] size-6 shrink-0'>
+                    className='opacity-0  group-hover:opacity-100 transition-opacity ml-auto p-0.5 text-sm text-[#f9edffcc] size-6 shrink-0'>
                       <PlusIcon className='size-5'/>
                     </Button>
                 </Hint>
