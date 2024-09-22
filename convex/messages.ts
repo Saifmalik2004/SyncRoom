@@ -326,33 +326,57 @@ export const update=mutation({
   }
 })
 
-export const remove=mutation({
-  args:{
-    id:v.id("messages")
-   
+export const remove = mutation({
+  args: {
+    id: v.id("messages")
   },
-  handler:async(ctx,args)=>{
-    const userId=await getAuthUserId(ctx);
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
 
-    if(!userId){
-     throw new Error("Unauthorized")
-    }
-    
-    const message=await ctx.db.get(args.id)
-
-    if(!message){
-      throw new Error("Message not found")
-     }
-
-    const member=await getMember(ctx,message.workspaceId,userId)
-    
-    
-    if(!member || member._id !== message.memberId){
-      throw new Error("Unauthorized")
+    // Check if the user is authorized
+    if (!userId) {
+      throw new Error("Unauthorized");
     }
 
-     await ctx.db.delete(args.id)
+    // Fetch the message to be deleted
+    const message = await ctx.db.get(args.id);
 
-    return args.id
+    // If the message is not found, throw an error
+    if (!message) {
+      throw new Error("Message not found");
+    }
+
+    // Ensure that the user deleting the message is the one who created it
+    const member = await getMember(ctx, message.workspaceId, userId);
+    
+    if (!member || member._id !== message.memberId) {
+      throw new Error("Unauthorized");
+    }
+
+    // If the message has an image, delete the image from storage
+    if (message?.image) {
+      await ctx.storage.delete(message.image);
+    }
+
+    // Find and delete all child messages (thread messages)
+    const childMessages = await ctx.db
+      .query("messages")
+      .withIndex("by_parent_message_id", (q) => q.eq("parentMessageId", args.id))
+      .collect();
+
+    // Delete all child messages recursively
+    for (const childMessage of childMessages) {
+      if (childMessage?.image) {
+        // If the child message has an image, delete it from storage
+        await ctx.storage.delete(childMessage.image);
+      }
+      // Delete the child message
+      await ctx.db.delete(childMessage._id);
+    }
+
+    // Delete the parent message itself
+    await ctx.db.delete(args.id);
+
+    return args.id;
   }
-})
+});

@@ -31,7 +31,7 @@ const schema = defineSchema({
     memberTwoId:v.id("members"),
     
   })
-  .index("by_worksapceId_id",["workspaceId"]),
+  .index("by_workspace_id",["workspaceId"]),
 
   messages:defineTable({
     body:v.string(),
