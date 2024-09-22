@@ -19,6 +19,7 @@ import { useGetChannels } from '@/features/channels/api/use-get-channels'
 import { useGetMembers } from '@/features/members/api/use-get-members'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { DialogDescription, DialogTitle } from '@/components/ui/dialog'
 
 const Toolbar=()=> {
   const router=useRouter()
@@ -46,13 +47,19 @@ const Toolbar=()=> {
                   </span>
                </Button>
                <CommandDialog open={open} onOpenChange={setOpen}>
+                <DialogTitle className='my-2 mx-2'>
+                  Search
+                </DialogTitle>
+                <DialogDescription className="mx-2 mb-2">
+    Search channels and members in this workspace.
+  </DialogDescription>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Channels">
             
           {channels?.map((channel)=>(
-               <CommandItem onSelect={()=> onChannelClick(channel._id)}>
+               <CommandItem key={channel._id} onSelect={()=> onChannelClick(channel._id)}>
                
                 
                {channel.name}
@@ -64,7 +71,7 @@ const Toolbar=()=> {
           <CommandSeparator />
           <CommandGroup heading="Members">
             {members?.map((member)=>(
-               <CommandItem onSelect={()=> onMemberClick(member._id)}>
+               <CommandItem key={member._id} onSelect={()=> onMemberClick(member._id)}>
 
                {member.user.name}
               
