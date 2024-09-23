@@ -8,10 +8,8 @@ import { SignInFlow } from "../types"
 import { useState } from "react"
 import { useAuthActions } from "@convex-dev/auth/react";
 import { TriangleAlert } from "lucide-react"
-interface SignInCardProps{
-    setState:(state:SignInFlow)=>void
-}
-export const SignInCard=({setState}:SignInCardProps)=>{
+
+export const SignInCard=()=>{
     const { signIn } = useAuthActions();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -24,17 +22,7 @@ export const SignInCard=({setState}:SignInCardProps)=>{
         setPending(false)
     })
    }
-   const onPasswordSignIn =(e:React.FormEvent<HTMLFormElement>)=>{
-   e.preventDefault();
-    setPending(true)
-    signIn('password',{email,password,flow:'signIn'})
-    .catch(()=>{
-       setError("Invalid password or email")
-    })
-    .finally(()=>{
-        setPending(false)
-    })
-   }
+   
     return(
         <Card className="w-full h-full p-8 ">
                 <CardHeader className="px-0 pt-0">
@@ -42,7 +30,7 @@ export const SignInCard=({setState}:SignInCardProps)=>{
                     Login to continue
                     </CardTitle>
                     <CardDescription>
-                    Use your email or another service to login
+                    Use your google email or github to login
                    </CardDescription>
                 </CardHeader>
                 {!!error && (
@@ -53,27 +41,7 @@ export const SignInCard=({setState}:SignInCardProps)=>{
                 )}
                 
                 <CardContent className="space-y-5 px-0 pb-0">
-                    <form onSubmit={onPasswordSignIn} className="space-y-2.5">
-                            <Input 
-                            value={email}
-                            type="email"
-                            placeholder="Email"
-                            onChange={(e)=> setEmail(e.target.value)}
-                            disabled={pending}
-                            required
-                            />
-                             <Input 
-                            value={password}
-                            type="password"
-                            placeholder="Password"
-                            onChange={(e)=> setPassword(e.target.value)}
-                            disabled={pending}
-                            required
-                            />
-                            <Button type="submit" className="w-full" size='lg' disabled={pending}>
-                                Continue
-                            </Button>
-                    </form>
+                    
                     <Separator/>
                     <div className="flex flex-col gap-y-2.5">
                          <Button
@@ -97,9 +65,7 @@ export const SignInCard=({setState}:SignInCardProps)=>{
                             Continue with Github
                          </Button>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                        Don't have an account? <span onClick={()=>setState("signUp")} className="text-sky-700 hover:underline cursor-pointer"> Sign Up</span>
-                    </p>
+                   
                 </CardContent>
         </Card>
     )

@@ -12,12 +12,16 @@ import { UserItem } from './user-item'
 import { useCreateChannelModal } from '@/features/channels/store/use-create-channel-modal'
 import { useChannelId } from '@/hooks/use-channel-id'
 import { useMemberId } from '@/hooks/use-memberId-id'
+import { useParams, useSearchParams } from 'next/navigation'
 
 
 const WorkspaceSidebar=()=> {
+  const params = useSearchParams()
+  const parentMessageId=params.get("parentMessageId")
   const workspaceId=useWorkspaceId()
   const channelId=useChannelId()
   const memberId=useMemberId();
+
 
 
   const [_open,setOpen]=useCreateChannelModal()
@@ -52,12 +56,11 @@ const WorkspaceSidebar=()=> {
         <SidebarItem
         label='Threads'
         icon={MessageSquareText}
-        id='threads'
+        variant={parentMessageId?'active':"default"}
         />
         <SidebarItem
         label='Draft & Sent'
         icon={SendHorizontal}
-        id='threads'
         />
 
       </div>

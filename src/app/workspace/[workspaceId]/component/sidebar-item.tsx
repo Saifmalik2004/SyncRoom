@@ -21,8 +21,9 @@ const sidebarItemVariants=cva(
     }
 )
 interface SidebarItemProps{
+
     label:string;
-    id:string
+    id?:string
     icon:LucideIcon |IconType;
     variant?:VariantProps<typeof sidebarItemVariants>['variant']
 }
@@ -35,18 +36,47 @@ export const SidebarItem=({
 }:SidebarItemProps)=>{
 
   const  workspaceId=useWorkspaceId()
+  
+  if(!id){
     return(
-        <Button
+      <Button
+        
         variant='transparent'
         size='sm'
         asChild
         className={cn(sidebarItemVariants({variant}))}
         
-        >
-            <Link href={`/workspace/${workspaceId}/channel/${id}`}>
-            <Icon className="size-3.5 mr-1 shrink-0"/>
-            <span className="text-sm truncate">{label}</span>
-            </Link>
+        >  
+           <div>
+           <Icon className="size-3.5 mr-1 shrink-0"/>
+           <span className="text-sm truncate">{label}</span>
+           </div>
+
         </Button>
     )
-}
+    
+    
+  }
+    return(
+
+        <Button
+        
+        variant='transparent'
+        size='sm'
+        asChild
+        className={cn(sidebarItemVariants({variant}))}
+        
+        >  
+           
+            <Link href={`/workspace/${workspaceId}/channel/${id}`}>
+                <Icon className="size-3.5 mr-1 shrink-0"/>
+                <span className="text-sm truncate">{label}</span>
+                </Link>
+        
+
+        </Button>
+
+
+    )
+  }
+    
