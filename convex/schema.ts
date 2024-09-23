@@ -4,10 +4,7 @@ import { v } from "convex/values";
  
 const schema = defineSchema({
   ...authTables,
-  extendedUsers:defineTable({
-    isTwofactor:v.boolean()
-
-  }),
+  
   workspaces:defineTable({
     name:v.string(),
     userId:v.id('users'),

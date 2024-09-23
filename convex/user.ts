@@ -38,31 +38,4 @@ export const updateName=mutation({
     return userId
   }
 })
-export const updateImage=mutation({
-  args:{
-    
-    image:v.id("_storage"),
-  },
-  handler:async(ctx,args)=>{
-    const userId=await getAuthUserId(ctx);
- 
-    if(!userId){
-     throw new Error("Unauthorized")
-    }
 
-   
-     const url= await ctx.storage.getUrl(args.image);
-
-     if(!url){
-      throw new Error("Error in save image")
-     }
-     
-     await ctx.db.patch(userId,{
-      image:url,
-    
-
-    })
-
-    return userId
-  }
-})

@@ -17,7 +17,6 @@ import { Loader } from 'lucide-react';
 import { useUpdateUserName } from '@/features/auth/api/use-update-user-name';
 import { toast } from 'sonner';
 import { useGenerateUplaodUrl } from '@/features/uplaod/api/use-generate-upload-url';
-import { useUpdateUserImage } from '@/features/auth/api/use-update-user-image';
 
 // Define schema for validation
 const formSchema = z.object({
@@ -34,12 +33,10 @@ const UserDashboard = () => {
   const { data: workspaces, isLoading: workspaceLoading } = useGetWorkspaces();
   const avatarFallback = currentUser?.name!.charAt(0).toUpperCase();
 
-  const [imagePreview, setImagePreview] = useState(currentUser?.image || "");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
   const imageElementRef = useRef<HTMLInputElement>(null);
   const { mutate: mutateName } = useUpdateUserName();
-  const { mutate: mutateImage } = useUpdateUserImage();
-  const { mutate: generateUploadUrl } = useGenerateUplaodUrl();
+ 
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -71,47 +68,9 @@ const UserDashboard = () => {
     });
   };
 
-  // Handle image selection and upload
-  const onSelectImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      setImagePreview(URL.createObjectURL(file)); // Preview image
-      await onSubmitImage(file); // Call upload function with selected file
-    }
-  };
 
-  // Upload image function
-  const onSubmitImage = async (file: File) => {
-    try {
-      const url = await generateUploadUrl({}, { throwError: true });
-      if (!url) {
-        throw new Error("URL not found");
-      }
 
-      const result = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": file.type },
-        body: file,
-      });
-
-      if (!result.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const { storageId } = await result.json();
-      mutateImage({ image: storageId }, {
-        onSuccess() {
-          toast.success("Profile pic updated");
-        },
-        onError: () => {
-          toast.error("Failed to update profile pic");
-        }
-      });
-    } catch (error) {
-      toast.error("Error")
-    }
-  };
+  
 
   if (channelLoading) {
     return (
@@ -135,28 +94,17 @@ const UserDashboard = () => {
         </div>
       </section>
 
-      {/* Hidden File Input for Image Selection */}
-      <input
-        accept="image/*"
-        ref={imageElementRef}
-        type="file"
-        className="hidden"
-        onChange={onSelectImage} // Handle image selection
-      />
+      
 
       {/* Avatar and Change Image Button */}
       <Avatar className="rounded-md size-40 border hover:opacity-75 transition">
-        <AvatarImage className="rounded-md" alt={currentUser.name} src={imagePreview || currentUser.image} />
+        <AvatarImage className="rounded-md" alt={currentUser.name} src={currentUser.image} />
         <AvatarFallback className="rounded-md bg-sky-500 text-white">
           {avatarFallback}
         </AvatarFallback>
       </Avatar>
 
-      {/* Change Photo Button */}
-      <Button onClick={() => imageElementRef.current?.click()} className="mt-2">
-        Change Photo
-      </Button>
-
+      
       {/* User Info */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
