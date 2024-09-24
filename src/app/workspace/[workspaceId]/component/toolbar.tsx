@@ -5,7 +5,7 @@ import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { Info, Search } from 'lucide-react'
 import React from 'react'
 import {
-  Command,
+  
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -13,11 +13,10 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
+  
 } from "@/components/ui/command"
 import { useGetChannels } from '@/features/channels/api/use-get-channels'
 import { useGetMembers } from '@/features/members/api/use-get-members'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { DialogDescription, DialogTitle } from '@/components/ui/dialog'
 

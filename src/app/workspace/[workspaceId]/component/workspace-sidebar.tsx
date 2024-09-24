@@ -12,7 +12,7 @@ import { UserItem } from './user-item'
 import { useCreateChannelModal } from '@/features/channels/store/use-create-channel-modal'
 import { useChannelId } from '@/hooks/use-channel-id'
 import { useMemberId } from '@/hooks/use-memberId-id'
-import { useParams, useSearchParams } from 'next/navigation'
+import {  useSearchParams } from 'next/navigation'
 
 
 const WorkspaceSidebar=()=> {

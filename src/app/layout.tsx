@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ConvexClientProvider } from "../components/ConvexClientProvider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
-import { CreateWorkspaceModal } from "@/features/workspace/components/create-workspace-modal";
 import { Modals } from "@/components/modal";
 import { Toaster } from "sonner";
 import JotaiProvider from "@/components/jotai-provider";

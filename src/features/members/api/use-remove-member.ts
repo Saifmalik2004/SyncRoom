@@ -15,7 +15,7 @@ type Options={
     onSettled?:()=> void
     throwError?:boolean
 }
-export const useremoveMember=()=>{
+export const useRemoveMember=()=>{
     const [data, setData] = useState<ResponseType>(null)
     const [error, setError] = useState<Error |null>(null)
 

@@ -17,7 +17,7 @@ export default function NotFoundPage() {
           </h1>
         </div>
         <p className="text-lg font-medium text-gray-900 mb-4">
-          Sorry, the page you are looking for doesn't exist.
+          Sorry, the page you are looking for doesn&apos;t exist.
         </p>
         <p className="text-base text-white mb-8">
           It might have been moved or deleted. Make sure the URL is correct.

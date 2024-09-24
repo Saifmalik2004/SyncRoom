@@ -75,7 +75,7 @@ const ChatInput=({placeholder}:ChatInputProps)=> {
        
       values.image=storageId;
     }
-    const result =await createMessage(values,{throwError:true});
+    await createMessage(values,{throwError:true});
   
     setEditorKey((prevKey)=> prevKey +1)
    } catch (error) {

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useCallback, useMemo, useState } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
@@ -11,7 +11,7 @@ type Options={
     onSettled?:()=> void
     throwError?:boolean
 }
-export const usenewJoinCode=()=>{
+export const useNewJoinCode=()=>{
     const [data, setData] = useState<ResponseType>(null)
     const [error, setError] = useState<Error |null>(null)
 

@@ -7,7 +7,7 @@ import {
     DialogDescription,
     DialogClose,
   } from "@/components/ui/dialog"
-import { usenewJoinCode } from "@/features/workspace/api/use-new-join-code";
+import { useNewJoinCode } from "@/features/workspace/api/use-new-join-code";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
@@ -24,7 +24,7 @@ import { toast } from "sonner";
   }
 
 const InviteModal=({open,setOpen,joinCode,name}:InviteModalProps)=> {
-  const {mutate,isPending}=usenewJoinCode()
+  const {mutate,isPending}=useNewJoinCode()
   const workspaceId=useWorkspaceId()
   const [ConfirmDialog,confirm]=useConfirm(
     'Are you sure?',

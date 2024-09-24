@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useUpdateMember } from "../api/use-update-member";
-import { useremoveMember } from "../api/use-remove-member";
+import { useRemoveMember } from "../api/use-remove-member";
 import { useCurrentMember } from "../api/use-current-member";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { toast } from "sonner";
@@ -41,7 +41,7 @@ export const Profile=({memberId,onClose}:ProfileProps)=>{
    
 
     const {mutate:updateMember,isPending:isUpdatingMember}=useUpdateMember();
-    const {mutate:removeMember,isPending:isremovingMember}=useremoveMember();
+    const {mutate:removeMember,isPending:isremovingMember}=useRemoveMember();
     const router=useRouter()
     const onRemove=async()=>{
         const ok = await confirmfRemove()
