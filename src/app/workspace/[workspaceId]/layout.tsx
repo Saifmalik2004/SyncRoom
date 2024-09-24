@@ -35,7 +35,7 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
         <ResizablePanelGroup autoSaveId="cs-workspace-layout" direction="horizontal">
           <ResizablePanel 
             defaultSize={20} 
-            minSize={11} 
+            minSize={2} 
             className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-900 to-pink-800" 
             id="workspace-sidebar" // Provide unique ID
             order={1} // Order of panel
@@ -46,7 +46,7 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
           <ResizableHandle withHandle />
 
           <ResizablePanel 
-            minSize={20} 
+            minSize={2} 
             defaultSize={mainPanelSize} 
             id="main-content-panel" // Provide unique ID
             order={2} // Order of panel
@@ -58,7 +58,7 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
             <>
               <ResizableHandle withHandle />
               <ResizablePanel 
-                minSize={20} 
+                minSize={2} 
                 defaultSize={sidePanelSize} 
                 id="thread-or-profile-panel" // Provide unique ID
                 order={3} // Order of panel
