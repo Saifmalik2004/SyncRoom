@@ -37,7 +37,7 @@ const Toolbar=()=> {
  router.push(`/workspace/${workspaceId}/channel/${channelId}`)
  }
   return (
-    <nav className='bg-[#481349] flex items-center justify-between h-10 p-1.5'>
+    <nav className='bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-900 to-pink-900 flex items-center justify-between h-10 p-1.5'>
         <div className="flex-1"/>
             <div className="min-w-[280px] max-[642px] grow-[2] shrink">
                <Button onClick={()=> setOpen(true)} size='sm' className='bg-accent/25 hover:bg-accent-25 w-full justify-start h-7 px-2'>

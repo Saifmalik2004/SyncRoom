@@ -36,7 +36,7 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
           <ResizablePanel 
             defaultSize={20} 
             minSize={11} 
-            className="bg-[#5E2C5F]" 
+            className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-900 to-pink-800" 
             id="workspace-sidebar" // Provide unique ID
             order={1} // Order of panel
           >

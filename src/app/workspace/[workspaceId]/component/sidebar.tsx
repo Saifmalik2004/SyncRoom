@@ -17,7 +17,7 @@ const Sidebar=()=> {
     const userId=user?._id
     const id = members?.[0]?._id;
   return (
-    <aside className='w-[70px] h-full bg-[#481349] flex flex-col gap-y-4 items-center pt-[9px] pb-[4px]'>
+    <aside className='w-[70px] h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-900 to-pink-900 flex flex-col gap-y-4 items-center pt-[9px] pb-[4px]'>
         <WorkspaceSwitcher/>
         <SidebarButton icon={Home} label='Home' isActive={pathname.includes("/workspace")}/>
         <Link href={`/workspace/${workspaceId}/member/${id}`}>
