@@ -25,7 +25,7 @@ const Toolbar=({
 }:ToolbarProps)=> {
   return (
     <div className="absolute top-0 right-5">
-        <div className="border bg-white">
+        <div className="group-hover:opacity-100 opacity-0 transition-opacity border bg-white">
            <EmojiPopover
            hint='Add reaction'
            onEmojiSelect={(emoji)=>handleReaction(emoji.native)}
